@@ -1,11 +1,11 @@
 from ..interfaces.itracker import ITracker
-from ..classes.messenger import Messenger
+from .parcel_status import ParcelStatus
 import requests
 
 
 class MultiTracker(ITracker):
     def __init__(self, history_option):
-        self.o_messenger = Messenger()
+        self.o_messenger = ParcelStatus()
         self.history_option = history_option
 
     def run(self, tracking_number):

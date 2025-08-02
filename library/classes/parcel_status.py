@@ -1,9 +1,11 @@
-from ..classes.date_converter import DateConverter
+from .date_converter import DateConverter
+from .translator import Translation
 
 
-class Messenger:
+class ParcelStatus:
     def __init__(self):
         self.o_date_converter = DateConverter()
+        self.o_translation = Translation()
 
     def get_parcel_status(self, raw_data):
         horizontal_spacer = '=' * 15
@@ -12,6 +14,9 @@ class Messenger:
         tracking_number = raw_data['sendungen'][0]['id']
         current_state = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['aktuellerStatus']
 
-        print(f'{horizontal_spacer} Main Information {horizontal_spacer}')
+        print(
+            f'{horizontal_spacer} {self.o_translation.get_title(200)} {horizontal_spacer}')
 
-        return f'Your parcel: {tracking_number}\nLast change: {self.o_date_converter.convert(current_state_date)}\nCurrent state: {current_state}'
+        status_message = self.o_translation.get_message(200)
+
+        return status_message.format(tracking_number, self.o_date_converter.convert(current_state_date), current_state)
