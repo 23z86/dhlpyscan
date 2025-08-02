@@ -24,3 +24,6 @@ class CMDScanner(Cmd):
     def do_exit(self, line):
         input("Thank you for using DHLPyScan - Press ENTER to quit...")
         sys.exit()
+    
+    def do_quit(self, line):
+        self.do_exit(line)
