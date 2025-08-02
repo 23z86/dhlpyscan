@@ -38,23 +38,23 @@ class CMDScanner(Cmd):
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
 
-    def do_exit(self):
+    def do_exit(self, line):
         """ Exits the programm """
 
         input(self.o_message_handler.show_message("status", 100))
         sys.exit()
 
-    def do_quit(self):
+    def do_quit(self, line):
         """ Exits the programm """
 
-        self.do_exit()
+        self.do_exit(line)
 
-    def do_clear(self):
+    def do_clear(self, line):
         """ Clears the console """
 
         os.system('cls')
 
-    def do_info(self):
+    def do_info(self, line):
         """ Shows some information about the project"""
 
         print(self.intro)
