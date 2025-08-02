@@ -1,5 +1,6 @@
 from cmd import Cmd
 import sys
+import os
 import re
 from library.classes.tracking_factory import TrackingFactory
 
@@ -16,7 +17,7 @@ class CMDScanner(Cmd):
     def do_track(self, line):
         """ Main function to track a parcel
         usage: track <tracking number> (--history) """
-        
+
         try:
             if isinstance(line, str):
                 tracking_numbers = []
@@ -45,3 +46,13 @@ class CMDScanner(Cmd):
         """ Exits the programm """
 
         self.do_exit(line)
+
+    def do_clear(self, line):
+        """ Clears the console """
+
+        os.system('cls')
+
+    def do_info(self, line):
+        """ Shows some information about the project"""
+
+        print(self.intro)

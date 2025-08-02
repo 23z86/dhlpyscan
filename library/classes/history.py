@@ -10,7 +10,7 @@ class History:
 
         print(f'{horizontal_spacer} History {horizontal_spacer}')
 
-        for event_counter in range(len(raw_data)):
 
+        for event in raw_data:
             print(
-                f'{self.o_date_converter.convert(raw_data[event_counter]['date'])} -- {raw_data[event_counter]['status']}')
+                f"{self.o_date_converter.convert(event['datum'])} -- {event['status']}")
