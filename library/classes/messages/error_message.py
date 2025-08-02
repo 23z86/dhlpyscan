@@ -1,5 +1,5 @@
 from .translator import Translation
-from ..interfaces.imessage import IMessage
+from .imessage import IMessage
 
 
 class ErrorMessage(IMessage):

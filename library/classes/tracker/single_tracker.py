@@ -1,8 +1,8 @@
-from ..interfaces.itracker import ITracker
-from .parcel_status import ParcelStatus
-from ..classes.error_message import ErrorMessage
-from ..classes.translator import Translation
-from ..classes.history import History
+from .itracker import ITracker
+from ..parcel_status import ParcelStatus
+from ..messages.error_message import ErrorMessage
+from ..messages.translator import Translation
+from ..history import History
 import requests
 
 

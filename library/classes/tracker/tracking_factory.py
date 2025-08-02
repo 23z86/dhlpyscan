@@ -1,6 +1,6 @@
-from ..interfaces.itracker import ITracker
-from library.classes.single_tracker import SingleTracker
-from library.classes.multi_tracker import MultiTracker
+from .itracker import ITracker
+from library.classes.tracker.single_tracker import SingleTracker
+from library.classes.tracker.multi_tracker import MultiTracker
 
 
 class TrackingFactory:

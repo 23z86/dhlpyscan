@@ -2,8 +2,8 @@ from cmd import Cmd
 import sys
 import os
 import re
-from library.classes.tracking_factory import TrackingFactory
-from library.classes.message_handler import MessageHandler
+from library.classes.tracker.tracking_factory import TrackingFactory
+from library.classes.messages.message_handler import MessageHandler
 
 
 class CMDScanner(Cmd):

@@ -1,5 +1,5 @@
 from ..classes.date_converter import DateConverter
-from ..classes.title_message import TitleMessage
+from .messages.title_message import TitleMessage
 
 
 class History:

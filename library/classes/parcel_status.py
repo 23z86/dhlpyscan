@@ -1,6 +1,6 @@
 from .date_converter import DateConverter
-from .status_message import StatusMessage
-from .title_message import TitleMessage
+from .messages.status_message import StatusMessage
+from .messages.title_message import TitleMessage
 
 
 class ParcelStatus:

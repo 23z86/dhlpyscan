@@ -1,5 +1,5 @@
-from ..interfaces.itracker import ITracker
-from .parcel_status import ParcelStatus
+from .itracker import ITracker
+from ..parcel_status import ParcelStatus
 import requests
 
 

@@ -1,5 +1,5 @@
-from ..interfaces.imessage import IMessage
-from ..classes.translator import Translation
+from .imessage import IMessage
+from .translator import Translation
 
 
 class TitleMessage(IMessage):

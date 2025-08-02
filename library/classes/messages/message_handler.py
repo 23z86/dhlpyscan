@@ -1,6 +1,6 @@
-from library.classes.error_message import ErrorMessage
-from library.classes.title_message import TitleMessage
-from library.classes.status_message import StatusMessage
+from library.classes.messages.error_message import ErrorMessage
+from library.classes.messages.title_message import TitleMessage
+from library.classes.messages.status_message import StatusMessage
 
 
 class MessageHandler:
