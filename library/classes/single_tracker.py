@@ -1,21 +1,24 @@
 from ..interfaces.itracker import ITracker
 from .parcel_status import ParcelStatus
-from ..classes.history import History
 from ..classes.error_message import ErrorMessage
+from ..classes.translator import Translation
+from ..classes.history import History
 import requests
 
 
 class SingleTracker(ITracker):
     def __init__(self, history_option):
         self.o_status = ParcelStatus()
-        self.o_history = History()
         self.o_error = ErrorMessage()
+        self.o_translation = Translation()
+        self.o_history = History()
         self.history_option = history_option
 
     def run(self, tracking_number):
         single_tracking_number = tracking_number[0]
         url = "https://www.dhl.de/int-verfolgen/data/search/?piececode=" + \
-            single_tracking_number + "&language=de" + "&cid=pulltorefresh"
+            single_tracking_number + "&language=" + self.o_translation.get_language() + \
+            "&cid=pulltorefresh"
         json_raw_data = requests.get(url, timeout=None).json()
 
         if 'aktuellerStatus' not in json_raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']:
