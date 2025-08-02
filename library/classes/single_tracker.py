@@ -5,8 +5,9 @@ import requests
 
 
 class SingleTracker(ITracker):
-    def __init__(self):
+    def __init__(self, history_option):
         self.o_messenger = Messenger()
+        self.history_option = history_option
 
     def run(self, tracking_number):
         single_tracking_number = tracking_number[0]

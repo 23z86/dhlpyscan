@@ -7,8 +7,8 @@ class TrackingFactory:
     def __init__(self, tracking_numbers):
         self.tracking_numbers = tracking_numbers
 
-    def create_tracker(self) -> ITracker:
+    def create_tracker(self, history_option) -> ITracker:
         if len(self.tracking_numbers) == 1:
-            return SingleTracker()
+            return SingleTracker(history_option)
 
-        return MultiTracker()
+        return MultiTracker(history_option)

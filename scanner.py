@@ -15,11 +15,11 @@ class CMDScanner(Cmd):
         try:
             tracking_numbers = re.split(' ', line)
             tracking_numbers.pop()
-            
+
             history_option = re.split(' ', line).pop()
 
             o_tracking_factory = TrackingFactory(tracking_numbers)
-            concrete_tracker = o_tracking_factory.create_tracker()
+            concrete_tracker = o_tracking_factory.create_tracker(history_option)
             concrete_tracker.run(tracking_numbers)
         except IndexError:
             print("Error - no tracking number provided")
