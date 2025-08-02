@@ -13,10 +13,16 @@ class CMDScanner(Cmd):
 
     def do_track(self, line):
         try:
-            tracking_numbers = re.split(' ', line)
-            tracking_numbers.pop()
+            if isinstance(line, str):
+                tracking_numbers = []
+                tracking_numbers.append(line)
+                history_option = None
 
-            history_option = re.split(' ', line).pop()
+            if "--history" in line:
+                history_option = re.split(' ', line).pop()
+                tracking_numbers = re.split(' ', line)
+                tracking_numbers.pop()
+
 
             o_tracking_factory = TrackingFactory(tracking_numbers)
             concrete_tracker = o_tracking_factory.create_tracker(history_option)
