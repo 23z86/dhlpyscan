@@ -16,7 +16,7 @@ class SingleTracker(ITracker):
             single_tracking_number + "&language=de" + "&cid=pulltorefresh"
         json_raw_data = requests.get(url, timeout=None).json()
 
-        if not requests.get(url, timeout=None).status_code == 200:
+        if 'aktuellerStatus' not in json_raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']:
             print(f"Sendung {single_tracking_number} nicht gefunden")
             return
 
