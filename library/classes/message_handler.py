@@ -10,13 +10,15 @@ class MessageHandler:
         self.o_status = StatusMessage()
 
     def show_message(self, message_type, message_code):
-        if message_type == "error":
-            return self.o_error.get_message(message_code)
 
-        if message_type == "title":
-            return self.o_title.get_message(message_code)
+        valid_types = {
+            "error": self.o_error,
+            "title": self.o_title,
+            "status": self.o_status,
+        }
 
-        if message_type == "status":
-            return self.o_status.get_message(message_code)
+        handler = valid_types.get(message_type)
 
-        raise ValueError(f"Unbekannter Nachrichtentyp: {message_type}")
+        if handler is None:
+            raise ValueError
+        return handler.get_message(message_code)
