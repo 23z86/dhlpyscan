@@ -10,7 +10,7 @@ class Translation:
             return "en"
         return "de"
 
-    def get_errors(self, error_code):
+    def get_error(self, error_code):
 
         errors = {
             1031: {

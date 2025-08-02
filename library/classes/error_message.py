@@ -1,4 +1,4 @@
-from ..classes.translator import Translation
+from .translator import Translation
 from ..interfaces.imessage import IMessage
 
 
@@ -7,4 +7,4 @@ class ErrorMessage(IMessage):
         self.o_tranlator = Translation()
 
     def get_message(self, message_code):
-        return self.o_tranlator.get_errors(message_code)
+        return self.o_tranlator.get_error(message_code)

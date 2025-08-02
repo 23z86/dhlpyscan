@@ -3,6 +3,9 @@ import sys
 import os
 import re
 from library.classes.tracking_factory import TrackingFactory
+from library.classes.error_message import ErrorMessage
+from library.classes.title_message import TitleMessage
+from library.classes.status_message import StatusMessage
 
 
 class CMDScanner(Cmd):
@@ -13,6 +16,10 @@ class CMDScanner(Cmd):
     separator = "~" * len(subtitle)
 
     intro = f'{welcome_message}\n{subtitle}\n{help_message}\n{separator}\n'
+
+    o_error = ErrorMessage()
+    o_title = TitleMessage()
+    o_status = StatusMessage()
 
     def do_track(self, line):
         """ Main function to track a parcel
@@ -34,12 +41,12 @@ class CMDScanner(Cmd):
                 history_option)
             concrete_tracker.run(tracking_numbers)
         except IndexError:
-            print("Error - no tracking number provided")
+            print(self.o_error.get_message(200))
 
     def do_exit(self, line):
         """ Exits the programm """
 
-        input("Thank you for using DHLPyScan - Press ENTER to quit...")
+        input(self.o_status.get_message(100))
         sys.exit()
 
     def do_quit(self, line):

@@ -1,16 +1,17 @@
 from ..classes.date_converter import DateConverter
-from ..classes.translator import Translation
+from ..classes.title_message import TitleMessage
+
 
 class History:
     def __init__(self):
         self.o_date_converter = DateConverter()
-        self.o_translation = Translation()
+        self.o_title = TitleMessage()
 
     def get_parcel_history(self, raw_data):
         horizontal_spacer = '=' * 15
 
-        print(f'{horizontal_spacer} {self.o_translation.get_title(100)} {horizontal_spacer}')
-
+        print(
+            f'{horizontal_spacer} {self.o_title.get_message(100)} {horizontal_spacer}')
 
         for event in raw_data:
             print(
