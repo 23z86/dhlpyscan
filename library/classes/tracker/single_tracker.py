@@ -18,7 +18,9 @@ class SingleTracker(ITracker):
         self.o_table = Table()
         self.history_option = history_option
 
-    def run(self, tracking_number):
+    def run(self, **kwargs):
+        tracking_number = kwargs.get('tracking_number')
+        assert tracking_number is not None
         single_tracking_number = tracking_number[0]
 
         url = "https://www.dhl.de/int-verfolgen/data/search/?piececode=" + \

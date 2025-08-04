@@ -11,17 +11,24 @@ class ParcelStatus:
 
     def get_parcel_status(self, raw_data):
         status_data = []
+        incomplete_status_data = []
 
-        if 'aktuellerStatus' not in raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']:
+        try:
+            self.validate_data_is_available(raw_data)
+            current_state_date = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['datumAktuellerStatus']
+            tracking_number = raw_data['sendungen'][0]['id']
+            current_state = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['aktuellerStatus']
+
             status_data.append(
-                [raw_data['sendungen'][0]['id'], "Keine Daten!", "Keine Daten!"])
+                [tracking_number,  self.o_date_converter.convert(current_state_date), current_state])
+
             return status_data
 
-        current_state_date = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['datumAktuellerStatus']
-        tracking_number = raw_data['sendungen'][0]['id']
-        current_state = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['aktuellerStatus']
+        except ValueError:
+            incomplete_status_data.append(
+                [raw_data['sendungen'][0]['id'], "Keine Daten!", "Keine Daten!"])
+            return incomplete_status_data
 
-        status_data.append(
-            [tracking_number,  self.o_date_converter.convert(current_state_date), current_state])
-
-        return status_data
+    def validate_data_is_available(self, raw_data):
+        if 'aktuellerStatus' not in raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']:
+            raise ValueError

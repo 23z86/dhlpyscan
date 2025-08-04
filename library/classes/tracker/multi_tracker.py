@@ -1,9 +1,9 @@
+import requests
+
 from .itracker import ITracker
 from ..parcel_status import ParcelStatus
 from ..messages.translator import Translation
 from ..pretty_table import Table
-
-import requests
 
 
 class MultiTracker(ITracker):
@@ -14,10 +14,13 @@ class MultiTracker(ITracker):
 
         self.history_option = history_option
 
-    def run(self, tracking_number):
-        tracking_numbers = tracking_number[0].split()
+    def run(self, **kwargs):
+        tracking_number = kwargs.get('tracking_number')
+        assert tracking_number is not None
 
-        for tracking_number in tracking_numbers:
+        single_tracking_number = tracking_number[0].split()
+
+        for tracking_number in single_tracking_number:
             url = "https://www.dhl.de/int-verfolgen/data/search/?piececode=" + \
                 tracking_number + "&language=" + self.o_translation.get_language() + \
                 "&cid=pulltorefresh"

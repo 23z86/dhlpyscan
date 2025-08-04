@@ -10,10 +10,11 @@ class CMDTracker(Cmd):
     prompt = 'DHL Parcel Tracker >> '
     welcome_message = "Welcome to DHL Parcel Tracker."
     subtitle = "A CLI-based Python tool to track your DHL parcels."
+    motivation = "No cookies, no personal data."
     help_message = "Type \"help\" for available commands."
     separator = "~" * len(subtitle)
 
-    intro = f'{welcome_message}\n{subtitle}\n{help_message}\n{separator}\n'
+    intro = f'{welcome_message}\n{subtitle}\n{motivation}\n\n{help_message}\n{separator}\n'
 
     o_message_handler = MessageHandler()
 
@@ -21,6 +22,7 @@ class CMDTracker(Cmd):
         """ Main function to track a parcel
         usage: track <tracking number> (--history) """
         history_option = None
+        self.do_clear(line)
         try:
             if isinstance(line, str):
                 tracking_numbers = []
@@ -57,5 +59,5 @@ class CMDTracker(Cmd):
 
     def do_info(self, line):
         """ Shows some information about the project"""
-
+        self.do_clear(line)
         print(self.intro)
