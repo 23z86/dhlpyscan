@@ -1,4 +1,4 @@
-from scanner import CMDScanner
+from tracker import CMDTracker
 
 if __name__ == '__main__':
-    CMDScanner().cmdloop()
+    CMDTracker().cmdloop()

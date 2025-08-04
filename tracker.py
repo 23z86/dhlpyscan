@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+# pylint: disable=W0613:unused-argument
 from cmd import Cmd
 import sys
 import os
@@ -6,21 +8,26 @@ from library.classes.tracker.tracking_factory import TrackingFactory
 from library.classes.messages.message_handler import MessageHandler
 
 
-class CMDScanner(Cmd):
-    prompt = 'DHL Parcel Scanner >> '
-    welcome_message = "Welcome to DHL Parcel Scanner."
+class CMDTracker(Cmd):
+    prompt = 'DHL Parcel Tracker >> '
+    welcome_message = "Welcome to DHL Parcel Tracker."
     subtitle = "A CLI-based Python tool to track your DHL parcels."
+    motivation = "No cookies, no personal data."
     help_message = "Type \"help\" for available commands."
     separator = "~" * len(subtitle)
 
-    intro = f'{welcome_message}\n{subtitle}\n{help_message}\n{separator}\n'
+    intro = f'{welcome_message}\n{subtitle}\n{motivation}\n\n{help_message}\n{separator}\n'
 
     o_message_handler = MessageHandler()
+
+    def default(self, line):
+        self.stdout.write(f'{self.o_message_handler.show_message("error", 300)}{line}\n')
 
     def do_track(self, line):
         """ Main function to track a parcel
         usage: track <tracking number> (--history) """
         history_option = None
+        self.do_clear(line)
         try:
             if isinstance(line, str):
                 tracking_numbers = []
@@ -35,7 +42,10 @@ class CMDScanner(Cmd):
             concrete_tracker = o_tracking_factory.create_tracker(
                 history_option)
             concrete_tracker.run(tracking_number=tracking_numbers)
+
         except IndexError:
+            print(self.o_message_handler.show_message("error", 200))
+        except ModuleNotFoundError:
             print(self.o_message_handler.show_message("error", 200))
 
     def do_exit(self, line):
@@ -56,5 +66,5 @@ class CMDScanner(Cmd):
 
     def do_info(self, line):
         """ Shows some information about the project"""
-
+        self.do_clear(line)
         print(self.intro)
