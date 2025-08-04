@@ -12,4 +12,7 @@ class TrackingFactory:
         if len(tracking_numbers) == 1:
             return SingleTracker(history_option)
 
-        return MultiTracker(history_option)
+        if len(tracking_numbers) > 1:
+            return MultiTracker(history_option)
+
+        raise ModuleNotFoundError

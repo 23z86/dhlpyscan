@@ -20,6 +20,9 @@ class CMDTracker(Cmd):
 
     o_message_handler = MessageHandler()
 
+    def default(self, line):
+        self.stdout.write(f'{self.o_message_handler.show_message("error", 300)}{line}\n')
+
     def do_track(self, line):
         """ Main function to track a parcel
         usage: track <tracking number> (--history) """
@@ -41,6 +44,8 @@ class CMDTracker(Cmd):
             concrete_tracker.run(tracking_number=tracking_numbers)
 
         except IndexError:
+            print(self.o_message_handler.show_message("error", 200))
+        except ModuleNotFoundError:
             print(self.o_message_handler.show_message("error", 200))
 
     def do_exit(self, line):

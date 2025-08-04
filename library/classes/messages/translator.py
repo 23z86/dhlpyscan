@@ -15,11 +15,13 @@ class Translation:
         errors = {
             1031: {
                 100: 'Sendung {} konnte nicht gefunden werden.',
-                200: 'Sendungsverfolgungsnummer fehlt.'
+                200: 'Sendungsverfolgungsnummer fehlt.',
+                300: 'Unbekannter Befehl: '
             },
             1033: {
                 100: 'Parcel {} not found.',
-                200: 'Tracking number is missing.'
+                200: 'Tracking number is missing.',
+                300: 'Unknown command: '
             }
         }
 
