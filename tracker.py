@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+# pylint: disable=W0613:unused-argument
 from cmd import Cmd
 import sys
 import os
