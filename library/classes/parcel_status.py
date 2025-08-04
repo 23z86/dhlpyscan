@@ -10,15 +10,18 @@ class ParcelStatus:
         self.o_title = TitleMessage()
 
     def get_parcel_status(self, raw_data):
-        horizontal_spacer = '=' * 15
+        status_data = []
+
+        if 'aktuellerStatus' not in raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']:
+            status_data.append(
+                [raw_data['sendungen'][0]['id'], "Keine Daten!", "Keine Daten!"])
+            return status_data
 
         current_state_date = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['datumAktuellerStatus']
         tracking_number = raw_data['sendungen'][0]['id']
         current_state = raw_data['sendungen'][0]['sendungsdetails']['sendungsverlauf']['aktuellerStatus']
 
-        print(
-            f'{horizontal_spacer} {self.o_title.get_message(200)} {horizontal_spacer}')
+        status_data.append(
+            [tracking_number,  self.o_date_converter.convert(current_state_date), current_state])
 
-        status_message = self.o_message.get_message(200)
-
-        return status_message.format(tracking_number, self.o_date_converter.convert(current_state_date), current_state)
+        return status_data

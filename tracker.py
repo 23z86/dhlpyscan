@@ -6,9 +6,9 @@ from library.classes.tracker.tracking_factory import TrackingFactory
 from library.classes.messages.message_handler import MessageHandler
 
 
-class CMDScanner(Cmd):
-    prompt = 'DHL Parcel Scanner >> '
-    welcome_message = "Welcome to DHL Parcel Scanner."
+class CMDTracker(Cmd):
+    prompt = 'DHL Parcel Tracker >> '
+    welcome_message = "Welcome to DHL Parcel Tracker."
     subtitle = "A CLI-based Python tool to track your DHL parcels."
     help_message = "Type \"help\" for available commands."
     separator = "~" * len(subtitle)
@@ -35,6 +35,7 @@ class CMDScanner(Cmd):
             concrete_tracker = o_tracking_factory.create_tracker(
                 history_option)
             concrete_tracker.run(tracking_number=tracking_numbers)
+            del line
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
 
