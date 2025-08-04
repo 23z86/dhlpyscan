@@ -4,7 +4,6 @@ import requests
 
 from .itracker import ITracker
 from ..parcel_status import ParcelStatus
-from ..messages.error_message import ErrorMessage
 from ..messages.translator import Translation
 from ..history import History
 from ..pretty_table import Table
@@ -13,7 +12,6 @@ from ..pretty_table import Table
 class SingleTracker(ITracker):
     def __init__(self, history_option):
         self.o_status = ParcelStatus()
-        self.o_error = ErrorMessage()
         self.o_translation = Translation()
         self.o_history = History()
         self.o_table = Table()

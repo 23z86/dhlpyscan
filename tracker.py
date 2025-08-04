@@ -39,7 +39,7 @@ class CMDTracker(Cmd):
             concrete_tracker = o_tracking_factory.create_tracker(
                 history_option)
             concrete_tracker.run(tracking_number=tracking_numbers)
-            del line
+
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
 

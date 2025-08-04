@@ -29,12 +29,14 @@ class Translation:
 
         titles = {
             1031: {
-                100: 'Sendungsverlauf',
-                200: 'Hauptinformationen'
+                100: 'Sendungsnummer',
+                200: 'Aktualisiert am',
+                300: 'Aktueller Status'
             },
             1033: {
-                100: 'History',
-                200: 'Main Information'
+                100: 'Tracking number',
+                200: 'Changed on',
+                300: 'Current state'
             }
         }
 
@@ -44,13 +46,13 @@ class Translation:
         messages = {
             1031: {
                 100: 'Vielen Dank, dass du DHLPyScan nutzst - Drücke ENTER zum Verlassen...',
-                200: 'Sendungsnummer: {}\nAktualisiert am: {}\nAktueller Status: {}'
+                200: 'Keine Daten!'
 
 
             },
             1033: {
                 100: 'Thank you for using DHLPyScan - Press ENTER to quit...',
-                200: 'Your parcel: {}\nLast change: {}\nCurrent state: {}'
+                200: 'No data!'
 
             }
         }
