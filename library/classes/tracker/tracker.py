@@ -1,11 +1,10 @@
 # pylint: disable=missing-docstring
 
-import requests
-
 from .itracker import ITracker
 from ..parcel_status import ParcelStatus
 from ..messages.translator import Translation
 from ..pretty_table import Table
+from ..requester import Requester
 
 
 class MultiTracker(ITracker):
@@ -13,6 +12,7 @@ class MultiTracker(ITracker):
         self.o_status = ParcelStatus()
         self.o_translation = Translation()
         self.o_table = Table()
+        self.o_requester = Requester()
 
         self.history_option = history_option
 
@@ -21,16 +21,17 @@ class MultiTracker(ITracker):
         assert tracking_number is not None
 
         single_tracking_number = tracking_number[0].split()
+        url_list = []
 
         for tracking_number in single_tracking_number:
             url = "https://www.dhl.de/int-verfolgen/data/search/?piececode=" + \
                 tracking_number + "&language=" + self.o_translation.get_language() + \
                 "&cid=pulltorefresh"
+            url_list.append(url)
 
-            json_raw_data = requests.get(url, timeout=None).json()
+        json_raw_data = self.o_requester.executor(url_list)
+        parcel_status = self.o_status.executor(json_raw_data)
 
-            parcel_status = self.o_status.get_parcel_status(json_raw_data)
-
-            self.o_table.add_rows(parcel_status)
+        self.o_table.add_rows(parcel_status)
 
         self.o_table.print_data_as_table()

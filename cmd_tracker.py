@@ -4,8 +4,8 @@ from cmd import Cmd
 import sys
 import os
 import re
-from library.classes.tracker.tracking_factory import TrackingFactory
 from library.classes.messages.message_handler import MessageHandler
+from library.classes.tracker.tracker import MultiTracker
 
 
 class CMDTracker(Cmd):
@@ -21,7 +21,8 @@ class CMDTracker(Cmd):
     o_message_handler = MessageHandler()
 
     def default(self, line):
-        self.stdout.write(f'{self.o_message_handler.show_message("error", 300)}{line}\n')
+        self.stdout.write(
+            f'{self.o_message_handler.show_message("error", 300)}{line}\n')
 
     def do_track(self, line):
         """ Main function to track a parcel
@@ -38,10 +39,8 @@ class CMDTracker(Cmd):
                 tracking_numbers = re.split(' ', line)
                 tracking_numbers.pop()
 
-            o_tracking_factory = TrackingFactory(tracking_numbers)
-            concrete_tracker = o_tracking_factory.create_tracker(
-                history_option)
-            concrete_tracker.run(tracking_number=tracking_numbers)
+            o_tracking_factory = MultiTracker(history_option)
+            o_tracking_factory.run(tracking_number=tracking_numbers)
 
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
