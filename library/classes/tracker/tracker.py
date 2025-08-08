@@ -7,7 +7,7 @@ from ..pretty_table import Table
 from ..requester import Requester
 
 
-class MultiTracker(ITracker):
+class Tracker(ITracker):
     def __init__(self, history_option):
         self.o_status = ParcelStatus()
         self.o_translation = Translation()

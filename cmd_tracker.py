@@ -5,7 +5,7 @@ import sys
 import os
 import re
 from library.classes.messages.message_handler import MessageHandler
-from library.classes.tracker.tracker import MultiTracker
+from library.classes.tracker.tracker import Tracker
 
 
 class CMDTracker(Cmd):
@@ -39,7 +39,7 @@ class CMDTracker(Cmd):
                 tracking_numbers = re.split(' ', line)
                 tracking_numbers.pop()
 
-            o_tracking_factory = MultiTracker(history_option)
+            o_tracking_factory = Tracker(history_option)
             o_tracking_factory.run(tracking_number=tracking_numbers)
 
         except IndexError:
