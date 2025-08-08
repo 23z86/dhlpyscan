@@ -6,6 +6,7 @@ import os
 import re
 from library.classes.messages.message_handler import MessageHandler
 from library.classes.tracker.tracker import Tracker
+from library.classes.history import History
 
 
 class CMDTracker(Cmd):
@@ -39,13 +40,22 @@ class CMDTracker(Cmd):
                 tracking_numbers = re.split(' ', line)
                 tracking_numbers.pop()
 
-            o_tracking_factory = Tracker(history_option)
-            o_tracking_factory.run(tracking_number=tracking_numbers)
+            o_tracker = Tracker(history_option)
+            o_tracker.run(tracking_number=tracking_numbers)
 
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
         except ModuleNotFoundError:
             print(self.o_message_handler.show_message("error", 200))
+
+    def do_history(self, line):
+        """ Shows the history of a parcel
+        usage: history <tracking number> """
+
+        self.do_clear(line)
+        o_history = History()
+
+        o_history.get_parcel_history(line)
 
     def do_exit(self, line):
         """ Exits the programm """
