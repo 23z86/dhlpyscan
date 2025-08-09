@@ -28,7 +28,7 @@ class Tracker(ITracker):
             url_list.append(url)
 
         json_raw_data = self.o_requester.execute_request(url_list)
-        parcel_status = self.o_status.executor(json_raw_data)
+        parcel_status = self.o_status.execute(json_raw_data)
 
         self.o_table.add_rows(parcel_status)
 

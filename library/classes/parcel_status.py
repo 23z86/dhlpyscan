@@ -11,7 +11,7 @@ class ParcelStatus:
         self.o_message = MessageHandler()
         self.o_title = TitleMessage()
 
-    def executor(self, raw_data):
+    def execute(self, raw_data):
         with ThreadPoolExecutor(max_workers=4) as executor:
             results = executor.map(self.get_parcel_status, raw_data)
 

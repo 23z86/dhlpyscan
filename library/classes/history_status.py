@@ -1,5 +1,5 @@
-from .date_converter import DateConverter
 from library.classes.messages.message_handler import MessageHandler
+from .date_converter import DateConverter
 from .messages.title_message import TitleMessage
 
 
@@ -19,7 +19,7 @@ class HistoryStatus:
 
             parcel_events = raw_data[0]['sendungsdetails']['sendungsverlauf']['events']
             tracking_number = raw_data[0]['id']
-            
+
             history_data.extend([
                 [tracking_number, self.o_date_converter.convert(
                     event['datum']), event['status']]
