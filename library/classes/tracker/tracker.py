@@ -8,13 +8,11 @@ from ..requester import Requester
 
 
 class Tracker(ITracker):
-    def __init__(self, history_option):
+    def __init__(self,):
         self.o_status = ParcelStatus()
         self.o_translation = Translation()
         self.o_table = Table()
         self.o_requester = Requester()
-
-        self.history_option = history_option
 
     def run(self, **kwargs):
         tracking_number = kwargs.get('tracking_number')

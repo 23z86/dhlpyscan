@@ -27,20 +27,14 @@ class CMDTracker(Cmd):
 
     def do_track(self, line):
         """ Main function to track a parcel
-        usage: track <tracking number> (--history) """
-        history_option = None
+        usage: track <tracking number>"""
         self.do_clear(line)
         try:
             if isinstance(line, str):
                 tracking_numbers = []
                 tracking_numbers.append(line)
 
-            if "--history" in line:
-                history_option = re.split(' ', line).pop()
-                tracking_numbers = re.split(' ', line)
-                tracking_numbers.pop()
-
-            o_tracker = Tracker(history_option)
+            o_tracker = Tracker()
             o_tracker.run(tracking_number=tracking_numbers)
 
         except IndexError:
