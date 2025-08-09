@@ -9,7 +9,6 @@ class HistoryStatus:
         self.o_message = MessageHandler()
         self.o_title = TitleMessage()
 
-
     def get_history(self, raw_data):
         history_data = []
         incomplete_status_data = []
@@ -20,9 +19,13 @@ class HistoryStatus:
 
             parcel_events = raw_data[0]['sendungsdetails']['sendungsverlauf']['events']
             tracking_number = raw_data[0]['id']
+            
+            history_data.extend([
+                [tracking_number, self.o_date_converter.convert(
+                    event['datum']), event['status']]
 
-            for event in parcel_events:
-                history_data.append([tracking_number, self.o_date_converter.convert(event['datum']), event['status']])
+                for event in parcel_events
+            ])
 
             return history_data
 

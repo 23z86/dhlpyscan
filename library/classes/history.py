@@ -18,7 +18,7 @@ class History:
                 "&cid=pulltorefresh"
         url_list.append(url)
 
-        json_raw_data = self.o_requester.executor(url_list)[0]
+        json_raw_data = self.o_requester.execute_request(url_list)[0]
         history = self.o_history_status.get_history(json_raw_data['sendungen'])
 
         self.o_table.add_rows(history)

@@ -10,7 +10,7 @@ class Requester:
 
         return response
 
-    def executor(self, url_list):
+    def execute_request(self, url_list):
         with ThreadPoolExecutor(max_workers=4) as executor:
             results = executor.map(self.get, url_list)
 

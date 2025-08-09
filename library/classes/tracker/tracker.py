@@ -27,7 +27,7 @@ class Tracker(ITracker):
                 "&cid=pulltorefresh"
             url_list.append(url)
 
-        json_raw_data = self.o_requester.executor(url_list)
+        json_raw_data = self.o_requester.execute_request(url_list)
         parcel_status = self.o_status.executor(json_raw_data)
 
         self.o_table.add_rows(parcel_status)
