@@ -4,8 +4,9 @@ from cmd import Cmd
 import sys
 import os
 import re
-from library.classes.tracker.tracking_factory import TrackingFactory
 from library.classes.messages.message_handler import MessageHandler
+from library.classes.tracker.tracker import Tracker
+from library.classes.history import History
 
 
 class CMDTracker(Cmd):
@@ -21,32 +22,34 @@ class CMDTracker(Cmd):
     o_message_handler = MessageHandler()
 
     def default(self, line):
-        self.stdout.write(f'{self.o_message_handler.show_message("error", 300)}{line}\n')
+        self.stdout.write(
+            f'{self.o_message_handler.show_message("error", 300)}{line}\n')
 
     def do_track(self, line):
         """ Main function to track a parcel
-        usage: track <tracking number> (--history) """
-        history_option = None
+        usage: track <tracking number>"""
         self.do_clear(line)
         try:
             if isinstance(line, str):
                 tracking_numbers = []
                 tracking_numbers.append(line)
 
-            if "--history" in line:
-                history_option = re.split(' ', line).pop()
-                tracking_numbers = re.split(' ', line)
-                tracking_numbers.pop()
-
-            o_tracking_factory = TrackingFactory(tracking_numbers)
-            concrete_tracker = o_tracking_factory.create_tracker(
-                history_option)
-            concrete_tracker.run(tracking_number=tracking_numbers)
+            o_tracker = Tracker()
+            o_tracker.run(tracking_number=tracking_numbers)
 
         except IndexError:
             print(self.o_message_handler.show_message("error", 200))
         except ModuleNotFoundError:
             print(self.o_message_handler.show_message("error", 200))
+
+    def do_history(self, line):
+        """ Shows the history of a parcel
+        usage: history <tracking number> """
+
+        self.do_clear(line)
+        o_history = History()
+
+        o_history.get_parcel_history(line)
 
     def do_exit(self, line):
         """ Exits the programm """

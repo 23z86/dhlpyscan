@@ -1,6 +1,8 @@
 from .date_converter import DateConverter
 from library.classes.messages.message_handler import MessageHandler
 from .messages.title_message import TitleMessage
+from concurrent.futures import ThreadPoolExecutor
+from itertools import chain
 
 
 class ParcelStatus:
@@ -9,6 +11,12 @@ class ParcelStatus:
         self.o_message = MessageHandler()
         self.o_title = TitleMessage()
 
+    def execute(self, raw_data):
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            results = executor.map(self.get_parcel_status, raw_data)
+
+        return list(chain.from_iterable(results))
+    
     def get_parcel_status(self, raw_data):
         status_data = []
         incomplete_status_data = []

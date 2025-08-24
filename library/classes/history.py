@@ -1,18 +1,26 @@
-from ..classes.date_converter import DateConverter
-from .messages.title_message import TitleMessage
-
+from .pretty_table import Table
+from .requester import Requester
+from .messages.translator import Translation
+from .history_status import HistoryStatus
 
 class History:
     def __init__(self):
-        self.o_date_converter = DateConverter()
-        self.o_title = TitleMessage()
+        self.o_translation = Translation()
+        self.o_table = Table()
+        self.o_requester = Requester()
+        self.o_history_status = HistoryStatus()
 
-    def get_parcel_history(self, raw_data):
-        horizontal_spacer = '=' * 15
 
-        print(
-            f'{horizontal_spacer} {self.o_title.get_message(100)} {horizontal_spacer}')
+    def get_parcel_history(self, tracking_number):
+        url_list = []
+        url = "https://www.dhl.de/int-verfolgen/data/search/?piececode=" + \
+                tracking_number + "&language=" + self.o_translation.get_language() + \
+                "&cid=pulltorefresh"
+        url_list.append(url)
 
-        for event in raw_data:
-            print(
-                f"{self.o_date_converter.convert(event['datum'])} -- {event['status']}")
+        json_raw_data = self.o_requester.execute_request(url_list)[0]
+        history = self.o_history_status.get_history(json_raw_data['sendungen'])
+
+        self.o_table.add_rows(history)
+
+        self.o_table.print_data_as_table()
